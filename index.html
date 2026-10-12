@@ -13,7 +13,6 @@
             --text-color: #1e293b;
             --border-color: #e2e8f0;
             --success-color: #16a34a;
-            --error-color: #dc2626;
         }
 
         body {
@@ -49,6 +48,39 @@
             color: #64748b;
             margin-bottom: 25px;
             font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .section-box {
+            display: none;
+        }
+
+        .section-box.active {
+            display: block;
         }
 
         .question-box {
@@ -113,14 +145,20 @@
 
         .result-container {
             text-align: center;
-            display: none;
+        }
+
+        .student-name-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 5px;
         }
 
         .score-display {
             font-size: 2.5rem;
             font-weight: bold;
             color: var(--primary-color);
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .feedback-text {
@@ -135,20 +173,36 @@
         <h1>Kuis Kebugaran Jasmani</h1>
         <p class="subtitle">Materi PJOK Kelas VII (Hal. 187 - 210)</p>
 
-        <form id="quizForm">
-            <div id="quizContainer"></div>
-            <button type="button" class="btn" onclick="submitQuiz()">Selesai & Lihat Nilai</button>
-        </form>
+        <!-- Bagian 1: Input Nama Siswa -->
+        <div id="nameSection" class="section-box active">
+            <div class="form-group">
+                <label for="studentName">Masukkan Nama Lengkap Anda:</label>
+                <input type="text" id="studentName" class="form-control" placeholder="Contoh: Budi Santoso" autocomplete="off">
+            </div>
+            <button type="button" class="btn" onclick="startQuiz()">Mulai Kuis</button>
+        </div>
 
-        <div id="resultContainer" class="result-container">
+        <!-- Bagian 2: Soal Kuis -->
+        <div id="quizSection" class="section-box">
+            <form id="quizForm">
+                <div id="quizContainer"></div>
+                <button type="button" class="btn" onclick="submitQuiz()">Selesai & Lihat Nilai</button>
+            </form>
+        </div>
+
+        <!-- Bagian 3: Hasil Akhir -->
+        <div id="resultSection" class="section-box result-container">
             <h2>Hasil Kuis Anda</h2>
-            <div class="score-display" id="scoreDisplay">0 / 10</div>
+            <div class="student-name-display" id="resultName"></div>
+            <div class="score-display" id="scoreDisplay">0 / 100</div>
             <p class="feedback-text" id="feedbackText"></p>
             <button type="button" class="btn" onclick="resetQuiz()">Ulangi Kuis</button>
         </div>
     </div>
 
     <script>
+        let studentFullName = "";
+
         const quizData = [
             {
                 question: "1. Kemampuan seseorang dalam melakukan berbagai aktivitas sehari-hari tanpa mengalami kelelahan yang berlebihan serta masih memiliki cadangan tenaga disebut dengan...",
@@ -278,6 +332,19 @@
             container.innerHTML = output;
         }
 
+        function startQuiz() {
+            const nameInput = document.getElementById("studentName").value.trim();
+            if (nameInput === "") {
+                alert("Mohon masukkan nama lengkap Anda terlebih dahulu!");
+                return;
+            }
+            studentFullName = nameInput;
+            
+            document.getElementById("nameSection").classList.remove("active");
+            document.getElementById("quizSection").classList.add("active");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function submitQuiz() {
             let score = 0;
             let unanswered = false;
@@ -296,10 +363,10 @@
                 return;
             }
 
-            document.getElementById("quizForm").style.display = "none";
-            const resultContainer = document.getElementById("resultContainer");
-            resultContainer.style.display = "block";
+            document.getElementById("quizSection").classList.remove("active");
+            document.getElementById("resultSection").classList.add("active");
 
+            document.getElementById("resultName").innerText = `Nama: ${studentFullName}`;
             document.getElementById("scoreDisplay").innerText = `${score} / 100`;
             
             let feedback = "";
@@ -311,12 +378,14 @@
                 feedback = "Tetap semangat! Silakan pelajari kembali buku ajar halaman 187–210.";
             }
             document.getElementById("feedbackText").innerText = feedback;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function resetQuiz() {
             document.getElementById("quizForm").reset();
-            document.getElementById("quizForm").style.display = "block";
-            document.getElementById("resultContainer").style.display = "none";
+            document.getElementById("studentName").value = "";
+            document.getElementById("resultSection").classList.remove("active");
+            document.getElementById("nameSection").classList.add("active");
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
