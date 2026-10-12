@@ -301,18 +301,18 @@
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
                 document.getElementById("timer-display").textContent = 
-                    ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')};
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }, 1000);
         }
 
         function loadQuestion() {
             const q = quizData[currentQuestionIndex];
-            document.getElementById("question-counter").textContent = Soal ${currentQuestionIndex + 1} dari ${quizData.length};
+            document.getElementById("question-counter").textContent = `Soal ${currentQuestionIndex + 1} dari ${quizData.length}`;
             document.getElementById("question-title").textContent = q.question;
             
             // Update progress bar
             const progressPercentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
-            document.getElementById("progress-bar").style.width = ${progressPercentage}%;
+            document.getElementById("progress-bar").style.width = `${progressPercentage}%`;
 
             const optionsContainer = document.getElementById("options-container");
             optionsContainer.innerHTML = "";
@@ -386,7 +386,7 @@
 
             const finalScore = (correctCount / quizData.length) * 100;
             document.getElementById("final-score").textContent = finalScore;
-            document.getElementById("result-name-display").textContent = Siswa: ${studentName};
+            document.getElementById("result-name-display").textContent = `Siswa: ${studentName}`;
 
             // Determine category and recommendation based on rubric level
             const badgeEl = document.getElementById("category-badge");
