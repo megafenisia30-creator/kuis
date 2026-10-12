@@ -3,492 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tes Diagnostik Kebugaran Jasmani - Fase D Kelas 7</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Kuis Kebugaran Jasmani - PJOK Kelas VII</title>
     <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
         }
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .question-box {
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary-color);
+            background-color: #eff6ff;
+        }
+
+        .option-label input {
+            margin-right: 12px;
+            accent-color: var(--primary-color);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .result-container {
+            text-align: center;
+            display: none;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .feedback-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 via-indigo-50/30 to-blue-100 min-h-screen text-slate-800 font-sans flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+<body>
 
-    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-brand-600 text-white p-2.5 rounded-xl shadow-md shadow-brand-500/20 flex items-center justify-center">
-                    <i class="fa-solid fa-heart-pulse text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-slate-900 text-base md:text-lg tracking-tight">PJOK Fase D - Kelas 7</h1>
-                    <p class="text-xs text-slate-500 font-medium">Tes Diagnostik Kebugaran Jasmani</p>
-                </div>
-            </div>
-            <div id="timer-container" class="hidden items-center space-x-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3.5 py-1.5 rounded-full text-sm font-semibold shadow-sm">
-                <i class="fa-regular fa-clock text-indigo-500 animate-pulse"></i>
-                <span id="timer-display">05:00</span>
-            </div>
-        </div>
-    </header>
+    <div class="container">
+        <h1>Kuis Kebugaran Jasmani</h1>
+        <p class="subtitle">Materi PJOK Kelas VII (Hal. 187 - 210)</p>
 
-    <main class="max-w-3xl w-full mx-auto px-4 py-8 flex-grow flex items-center justify-center">
+        <form id="quizForm">
+            <div id="quizContainer"></div>
+            <button type="button" class="btn" onclick="submitQuiz()">Selesai & Lihat Nilai</button>
+        </form>
 
-        <!-- VIEW 1: WELCOME SCREEN -->
-        <section id="welcome-view" class="w-full bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 md:p-10 fade-in">
-            <div class="text-center max-w-lg mx-auto">
-                <div class="w-20 h-20 bg-indigo-100 text-brand-600 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-6 shadow-inner">
-                    <i class="fa-solid fa-dumbbell"></i>
-                </div>
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Selamat Datang di Asesmen Awal</h2>
-                <p class="text-slate-600 text-sm md:text-base leading-relaxed mb-8">
-                    Mari uji pemahaman awal dan keterampilan prasyarat Anda mengenai komponen serta bentuk tes kebugaran jasmani. Tes ini terdiri dari 5 soal pilihan ganda.
-                </p>
-
-                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-left mb-8 space-y-3">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2"><i class="fa-solid fa-circle-info mr-1.5"></i> Informasi Tes</h3>
-                    <div class="flex items-center text-sm text-slate-700">
-                        <i class="fa-solid fa-list-check w-6 text-brand-500"></i>
-                        <span>Jumlah Soal: <strong>5 Pertanyaan Pilihan Ganda</strong></span>
-                    </div>
-                    <div class="flex items-center text-sm text-slate-700">
-                        <i class="fa-solid fa-stopwatch w-6 text-brand-500"></i>
-                        <span>Durasi Waktu: <strong>5 Menit (Opsional)</strong></span>
-                    </div>
-                    <div class="flex items-center text-sm text-slate-700">
-                        <i class="fa-solid fa-award w-6 text-brand-500"></i>
-                        <span>Umpan Balik: <strong>Skor, Pembahasan & Kategori Langsung</strong></span>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <div>
-                        <label for="student-name" class="block text-xs font-semibold text-slate-600 text-left mb-1.5 uppercase tracking-wide">Nama Lengkap Siswa</label>
-                        <input type="text" id="student-name" placeholder="Ketik nama lengkap Anda di sini..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm transition shadow-sm">
-                    </div>
-                    <button id="start-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-brand-600/30 transition-all transform active:scale-[0.99] flex items-center justify-center space-x-2">
-                        <span>Mulai Tes Diagnostik</span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- VIEW 2: QUIZ / TEST SCREEN -->
-        <section id="quiz-view" class="w-full bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 md:p-10 hidden fade-in">
-            <div class="flex justify-between items-center mb-4">
-                <span id="question-counter" class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">Soal 1 dari 5</span>
-                <span id="score-indicator" class="text-xs font-medium text-slate-400">Pilih salah satu jawaban</span>
-            </div>
-            <div class="w-full bg-slate-100 h-2 rounded-full mb-8 overflow-hidden">
-                <div id="progress-bar" class="bg-brand-600 h-full transition-all duration-300 rounded-full" style="width: 20%;"></div>
-            </div>
-
-            <div class="mb-8">
-                <h3 id="question-title" class="text-lg md:text-xl font-bold text-slate-900 leading-snug"></h3>
-            </div>
-
-            <div id="options-container" class="space-y-3 mb-8"></div>
-
-            <div class="flex justify-between items-center pt-4 border-t border-slate-100">
-                <button id="prev-btn" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-50 font-medium text-sm transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center space-x-2">
-                    <i class="fa-solid fa-arrow-left text-xs"></i>
-                    <span>Sebelumnya</span>
-                </button>
-                <button id="next-btn" class="bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm px-6 py-2.5 rounded-xl shadow-md shadow-brand-600/20 transition flex items-center space-x-2">
-                    <span id="next-btn-text">Selanjutnya</span>
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
-                </button>
-            </div>
-        </section>
-
-        <!-- VIEW 3: RESULT SCREEN -->
-        <section id="result-view" class="w-full bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 md:p-10 hidden fade-in">
-            <div class="text-center max-w-lg mx-auto">
-                <div id="result-icon-container" class="w-20 h-20 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-4 shadow-md"></div>
-                <h2 class="text-2xl font-bold text-slate-900 mb-1">Hasil Tes Diagnostik</h2>
-                <p id="result-name-display" class="text-sm text-slate-500 font-medium mb-6">Nama Siswa</p>
-
-                <div class="bg-gradient-to-br from-slate-50 to-indigo-50/50 border border-slate-200/80 rounded-2xl p-6 mb-6">
-                    <span class="text-xs uppercase font-bold text-slate-400 tracking-wider block mb-1">Skor Akhir Anda</span>
-                    <div class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">
-                        <span id="final-score">0</span><span class="text-2xl text-slate-400 font-normal">/100</span>
-                    </div>
-                    <div id="category-badge" class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3"></div>
-                    <p id="category-description" class="text-xs md:text-sm text-slate-600 leading-relaxed px-2"></p>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                    <button id="review-btn" class="flex-1 bg-indigo-50 hover:bg-indigo-100 text-brand-700 border border-indigo-200 font-semibold py-3 px-5 rounded-xl transition text-sm flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-list-check"></i>
-                        <span>Lihat Pembahasan</span>
-                    </button>
-                    <button id="restart-btn" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-5 rounded-xl shadow-md shadow-brand-600/20 transition text-sm flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-rotate-right"></i>
-                        <span>Ulangi Tes</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <div id="review-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-100 overflow-hidden animate-fadeIn">
-            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <div class="flex items-center space-x-2.5">
-                    <div class="bg-brand-500 text-white p-2 rounded-lg text-sm">
-                        <i class="fa-solid fa-book-open"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-900 text-lg">Pembahasan Soal & Kunci Jawaban</h3>
-                </div>
-                <button id="close-modal-x" class="text-slate-400 hover:text-slate-700 bg-white border border-slate-200 w-8 h-8 rounded-full flex items-center justify-center transition">
-                    <i class="fa-solid fa-xmark text-sm"></i>
-                </button>
-            </div>
-            <div id="review-content-container" class="p-6 overflow-y-auto space-y-6 flex-grow"></div>
-            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
-                <button id="close-modal-btn" class="bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition">
-                    Tutup Pembahasan
-                </button>
-            </div>
+        <div id="resultContainer" class="result-container">
+            <h2>Hasil Kuis Anda</h2>
+            <div class="score-display" id="scoreDisplay">0 / 10</div>
+            <p class="feedback-text" id="feedbackText"></p>
+            <button type="button" class="btn" onclick="resetQuiz()">Ulangi Kuis</button>
         </div>
     </div>
-
-    <footer class="text-center py-6 text-xs text-slate-400 border-t border-slate-200/60 bg-white/50">
-        <p>Modul Ajar PJOK Fase D Kelas 7 &copy; 2026 | Asesmen Diagnostik Kebugaran Jasmani</p>
-    </footer>
 
     <script>
         const quizData = [
             {
-                question: "Manakah dari pernyataan berikut yang bukan merupakan komponen kebugaran jasmani?",
+                question: "1. Kemampuan seseorang dalam melakukan berbagai aktivitas sehari-hari tanpa mengalami kelelahan yang berlebihan serta masih memiliki cadangan tenaga disebut dengan...",
                 options: [
                     "Kekuatan otot",
-                    "Daya tahan kardiovaskular",
-                    "Fleksibilitas",
-                    "Teknik pernapasan"
+                    "Kebugaran jasmani",
+                    "Kelentukan tubuh",
+                    "Kelincahan gerak"
                 ],
-                correct: 3,
-                explanation: "Teknik pernapasan merupakan aspek keterampilan atau teknik bernapas dalam olahraga, sedangkan kekuatan otot, daya tahan kardiovaskular, dan fleksibilitas termasuk dalam komponen utama kebugaran jasmani."
+                answer: 1
             },
             {
-                question: "Manakah dari pernyataan berikut yang merupakan tes untuk mengukur kekuatan otot?",
+                question: "2. Unsur-unsur kebugaran jasmani secara garis besar dikelompokkan menjadi komponen yang berkaitan dengan kesehatan dan...",
                 options: [
-                    "Tes push-up",
-                    "Tes shuttle run",
-                    "Tes sit and reach",
-                    "Tes beep test"
+                    "Keterampilan",
+                    "Keindahan tubuh",
+                    "Kecepatan reaksi",
+                    "Keseimbangan statis"
                 ],
-                correct: 0,
-                explanation: "Tes push-up dirancang dan umum digunakan untuk mengukur tingkat kekuatan dan ketahanan otot tubuh bagian atas."
+                answer: 0
             },
             {
-                question: "Manakah dari pernyataan berikut yang bukan termasuk bentuk tes kebugaran kardiovaskular?",
+                question: "3. Latihan push-up (angkat badan) yang dilakukan secara rutin dan benar bertujuan terutama untuk melatih kekuatan dan ketahanan otot...",
                 options: [
-                    "Tes lari jarak pendek",
-                    "Tes plank",
-                    "Tes bersepeda",
-                    "Tes renang"
+                    "Perut dan pinggang",
+                    "Lengan dan bahu",
+                    "Kaki dan betis",
+                    "Leher dan punggung"
                 ],
-                correct: 1,
-                explanation: "Tes plank adalah bentuk tes untuk mengukur kekuatan otot inti (core strength) dan daya tahan otot perut/punggung, bukan tes kardiovaskular utama."
+                answer: 1
             },
             {
-                question: "Komponen kebugaran jasmani yang berkaitan dengan kelenturan tubuh disebut sebagai:",
+                question: "4. Bentuk latihan fisik yang berfungsi khusus untuk melatih kekuatan otot perut (abdominal strength) adalah...",
                 options: [
-                    "Kekuatan otot",
-                    "Daya tahan otot",
-                    "Fleksibilitas",
-                    "Koordinasi"
+                    "Back-lift",
+                    "Push-up",
+                    "Sit-up",
+                    "Pull-up"
                 ],
-                correct: 2,
-                explanation: "Fleksibilitas (kelenturan) adalah kemampuan sendi untuk bergerak melalui rentang gerak yang seluas-luasnya tanpa mengalami cedera."
+                answer: 2
             },
             {
-                question: "Tes yang mengukur daya tahan kardiovaskular melalui aktivitas lari dan berhenti secara berulang-ulang disebut:",
+                question: "5. Latihan back-lift dalam program kebugaran jasmani ditujukan untuk memperkuat otot...",
                 options: [
-                    "Tes plank",
-                    "Tes sit and reach",
-                    "Tes shuttle run",
-                    "Tes standing long jump"
+                    "Punggung dan pinggang",
+                    "Dada dan perut",
+                    "Lengan atas",
+                    "Kaki bagian depan"
                 ],
-                correct: 2,
-                explanation: "Tes shuttle run (lari bolak-balik) menguji kelincahan, kecepatan, serta daya tahan kardiovaskular melalui perubahan arah gerakan secara berulang."
+                answer: 0
+            },
+            {
+                question: "6. Kemampuan persendian untuk dapat bergerak secara bebas, terutama dalam ruang gerak sendi secara maksimal disebut dengan istilah...",
+                options: [
+                    "Kekuatan (strength)",
+                    "Daya tahan (endurance)",
+                    "Kelentukan (flexibility)",
+                    "Kecepatan (speed)"
+                ],
+                answer: 2
+            },
+            {
+                question: "7. Kemampuan jantung, paru-paru, dan pembuluh darah untuk berfungsi secara optimal saat melakukan aktivitas fisik dalam jangka waktu yang lama berkaitan dengan...",
+                options: [
+                    "Daya tahan jantung dan paru-paru",
+                    "Kelincahan gerak tubuh",
+                    "Kekuatan otot tungkai",
+                    "Daya ledak otot"
+                ],
+                answer: 0
+            },
+            {
+                question: "8. Sebelum melakukan inti latihan kebugaran jasmani untuk menghindari cedera, tahapan awal yang wajib dilakukan adalah...",
+                options: [
+                    "Pendinginan (cooling down)",
+                    "Pemanasan (warming up)",
+                    "Latihan inti beban berat",
+                    "Lari cepat jarak jauh"
+                ],
+                answer: 1
+            },
+            {
+                question: "9. Aktivitas lari bolak-balik dengan menempuh jarak tertentu secara cepat untuk melatih kemampuan mengubah arah disebut dengan latihan...",
+                options: [
+                    "Shuttle run (lari bolak-balik)",
+                    "Jogging santai",
+                    "Sprint jarak pendek",
+                    "Lari pelan berkesinambungan"
+                ],
+                answer: 0
+            },
+            {
+                question: "10. Tahap akhir yang dilakukan setelah selesai melakukan seluruh rangkaian latihan kebugaran jasmani agar kondisi tubuh kembali normal secara bertahap adalah...",
+                options: [
+                    "Pemanasan",
+                    "Pendinginan",
+                    "Peregangan statis berat",
+                    "Latihan kekuatan inti"
+                ],
+                answer: 1
             }
         ];
 
-        let currentQuestionIndex = 0;
-        let userAnswers = new Array(quizData.length).fill(null);
-        let studentName = "";
-        let timerInterval = null;
-        let timeLeft = 300;
+        function loadQuiz() {
+            const container = document.getElementById("quizContainer");
+            let output = "";
 
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("start-btn").addEventListener("click", startQuiz);
-            document.getElementById("prev-btn").addEventListener("click", prevQuestion);
-            document.getElementById("next-btn").addEventListener("click", nextQuestion);
-            document.getElementById("review-btn").addEventListener("click", showReviewModal);
-            document.getElementById("restart-btn").addEventListener("click", restartQuiz);
-            document.getElementById("close-modal-x").addEventListener("click", closeReviewModal);
-            document.getElementById("close-modal-btn").addEventListener("click", closeReviewModal);
-        });
-
-        function startQuiz() {
-            const nameInput = document.getElementById("student-name").value.trim();
-            if (!nameInput) {
-                alertCustom("Mohon masukkan nama lengkap Anda terlebih dahulu!");
-                return;
-            }
-            studentName = nameInput;
-            document.getElementById("welcome-view").classList.add("hidden");
-            document.getElementById("quiz-view").classList.remove("hidden");
-            document.getElementById("timer-container").classList.remove("hidden");
-            document.getElementById("timer-container").classList.add("flex");
-
-            startTimer();
-            loadQuestion();
-        }
-
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    submitQuiz();
-                    return;
-                }
-                timeLeft--;
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                document.getElementById("timer-display").textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
-        }
-
-        function loadQuestion() {
-            const q = quizData[currentQuestionIndex];
-            document.getElementById("question-counter").textContent = `Soal ${currentQuestionIndex + 1} dari ${quizData.length}`;
-            document.getElementById("question-title").textContent = q.question;
-            
-            const progressPercentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
-            document.getElementById("progress-bar").style.width = `${progressPercentage}%`;
-
-            const optionsContainer = document.getElementById("options-container");
-            optionsContainer.innerHTML = "";
-
-            q.options.forEach((option, index) => {
-                const isSelected = userAnswers[currentQuestionIndex] === index;
-                const optionCard = document.createElement("div");
-                optionCard.className = `p-4 rounded-2xl border-2 transition cursor-pointer flex items-center space-x-3.5 ${
-                    isSelected 
-                        ? 'border-brand-600 bg-brand-50/60 text-brand-900 shadow-sm' 
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 text-slate-700'
-                }`;
-                optionCard.addEventListener("click", () => selectOption(index));
-
-                optionCard.innerHTML = `
-                    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold transition ${
-                        isSelected ? 'border-brand-600 bg-brand-600 text-white' : 'border-slate-300 text-slate-500'
-                    }">
-                        ${String.fromCharCode(65 + index)}
-                    </div>
-                    <span class="text-sm font-medium flex-grow">${option}</span>
+            quizData.forEach((q, index) => {
+                output += `
+                    <div class="question-box">
+                        <div class="question-title">${q.question}</div>
+                        <ul class="options-list">
                 `;
-                optionsContainer.appendChild(optionCard);
+                q.options.forEach((opt, optIndex) => {
+                    output += `
+                        <li class="option-item">
+                            <label class="option-label">
+                                <input type="radio" name="question${index}" value="${optIndex}">
+                                ${opt}
+                            </label>
+                        </li>
+                    `;
+                });
+                output += `</ul></div>`;
             });
 
-            document.getElementById("prev-btn").disabled = currentQuestionIndex === 0;
-            const nextBtnText = document.getElementById("next-btn-text");
-            if (currentQuestionIndex === quizData.length - 1) {
-                nextBtnText.textContent = "Kirim Jawaban";
-            } else {
-                nextBtnText.textContent = "Selanjutnya";
-            }
-        }
-
-        function selectOption(optionIndex) {
-            userAnswers[currentQuestionIndex] = optionIndex;
-            loadQuestion();
-        }
-
-        function prevQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                loadQuestion();
-            }
-        }
-
-        function nextQuestion() {
-            if (currentQuestionIndex < quizData.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion();
-            } else {
-                submitQuiz();
-            }
+            container.innerHTML = output;
         }
 
         function submitQuiz() {
-            clearInterval(timerInterval);
-            document.getElementById("quiz-view").classList.add("hidden");
-            document.getElementById("timer-container").classList.add("hidden");
-            document.getElementById("timer-container").classList.remove("flex");
-            document.getElementById("result-view").classList.remove("hidden");
+            let score = 0;
+            let unanswered = false;
 
-            let correctCount = 0;
-            quizData.forEach((q, idx) => {
-                if (userAnswers[idx] === q.correct) {
-                    correctCount++;
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (!selected) {
+                    unanswered = true;
+                } else if (parseInt(selected.value) === q.answer) {
+                    score += 10;
                 }
             });
 
-            const finalScore = (correctCount / quizData.length) * 100;
-            document.getElementById("final-score").textContent = finalScore;
-            document.getElementById("result-name-display").textContent = `Siswa: ${studentName}`;
-
-            const badgeEl = document.getElementById("category-badge");
-            const descEl = document.getElementById("category-description");
-            const iconContainer = document.getElementById("result-icon-container");
-
-            if (finalScore >= 80) {
-                iconContainer.className = "w-20 h-20 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-4 shadow-md bg-emerald-100 text-emerald-600";
-                iconContainer.innerHTML = '<i class="fa-solid fa-award"></i>';
-                badgeEl.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-emerald-100 text-emerald-700 border border-emerald-200";
-                badgeEl.textContent = "Kategori: Mahir (Level 3)";
-                descEl.textContent = "Luar biasa! Anda memahami seluruh komponen dan bentuk tes kebugaran jasmani dengan sangat baik. Anda siap mengikuti pembelajaran inti dengan mandiri.";
-            } else if (finalScore >= 60) {
-                iconContainer.className = "w-20 h-20 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-4 shadow-md bg-amber-100 text-amber-600";
-                iconContainer.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-                badgeEl.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-amber-100 text-amber-700 border border-amber-200";
-                badgeEl.textContent = "Kategori: Layak (Level 2)";
-                descEl.textContent = "Bagus! Anda telah memenuhi sebagian besar pemahaman dasar kebugaran jasmani. Layak untuk melanjutkan ke pembelajaran praktik inti dengan sedikit penyegaran materi.";
-            } else {
-                iconContainer.className = "w-20 h-20 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-4 shadow-md bg-rose-100 text-rose-600";
-                iconContainer.innerHTML = '<i class="fa-solid fa-book-bookmark"></i>';
-                badgeEl.className = "inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-rose-100 text-rose-700 border border-rose-200";
-                badgeEl.textContent = "Kategori: Berkembang / Perlu Pendampingan (Level 1)";
-                descEl.textContent = "Anda membutuhkan bimbingan atau pendampingan khusus dari guru untuk memahami kembali konsep komponen dan bentuk tes kebugaran jasmani.";
+            if (unanswered) {
+                alert("Mohon jawab semua soal terlebih dahulu!");
+                return;
             }
 
-            buildReviewContent();
+            document.getElementById("quizForm").style.display = "none";
+            const resultContainer = document.getElementById("resultContainer");
+            resultContainer.style.display = "block";
+
+            document.getElementById("scoreDisplay").innerText = `${score} / 100`;
+            
+            let feedback = "";
+            if (score === 100) {
+                feedback = "Luar biasa! Anda menguasai materi dengan sangat baik.";
+            } else if (score >= 70) {
+                feedback = "Bagus! Pemahaman Anda terhadap materi sudah baik.";
+            } else {
+                feedback = "Tetap semangat! Silakan pelajari kembali buku ajar halaman 187–210.";
+            }
+            document.getElementById("feedbackText").innerText = feedback;
         }
 
-        function buildReviewContent() {
-            const container = document.getElementById("review-content-container");
-            container.innerHTML = "";
-
-            quizData.forEach((q, idx) => {
-                const userAns = userAnswers[idx];
-                const isCorrect = userAns === q.correct;
-
-                const itemDiv = document.createElement("div");
-                itemDiv.className = "p-4 rounded-2xl border border-slate-200/80 bg-slate-50/50 space-y-2";
-                
-                let optionsHtml = "";
-                q.options.forEach((opt, oIdx) => {
-                    let badgeClass = "text-slate-600";
-                    let iconHtml = "";
-                    if (oIdx === q.correct) {
-                        badgeClass = "font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded";
-                        iconHtml = '<i class="fa-solid fa-check text-emerald-600 ml-2"></i>';
-                    } else if (oIdx === userAns && !isCorrect) {
-                        badgeClass = "font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded";
-                        iconHtml = '<i class="fa-solid fa-xmark text-rose-600 ml-2"></i>';
-                    }
-                    optionsHtml += `<div class="text-xs py-1 flex items-center justify-between ${badgeClass}">
-                        <span>${String.fromCharCode(65 + oIdx)}. ${opt}</span>
-                        <span>${iconHtml}</span>
-                    </div>`;
-                });
-
-                itemDiv.innerHTML = `
-                    <div class="flex items-start justify-between">
-                        <span class="text-xs font-bold text-slate-400 uppercase">Pertanyaan ${idx + 1}</span>
-                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full ${isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">
-                            ${isCorrect ? 'Benar' : 'Salah'}
-                        </span>
-                    </div>
-                    <h4 class="text-sm font-bold text-slate-900">${q.question}</h4>
-                    <div class="space-y-1 mt-2 pt-2 border-t border-slate-200/60">
-                        ${optionsHtml}
-                    </div>
-                    <div class="mt-3 bg-indigo-50/60 border border-indigo-100 rounded-xl p-3 text-xs text-indigo-900">
-                        <strong>Pembahasan:</strong> ${q.explanation}
-                    </div>
-                `;
-                container.appendChild(itemDiv);
-            });
+        function resetQuiz() {
+            document.getElementById("quizForm").reset();
+            document.getElementById("quizForm").style.display = "block";
+            document.getElementById("resultContainer").style.display = "none";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function showReviewModal() {
-            document.getElementById("review-modal").classList.remove("hidden");
-            document.getElementById("review-modal").classList.add("flex");
-        }
-
-        function closeReviewModal() {
-            document.getElementById("review-modal").classList.add("hidden");
-            document.getElementById("review-modal").classList.remove("flex");
-        }
-
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            userAnswers = new Array(quizData.length).fill(null);
-            timeLeft = 300;
-            document.getElementById("result-view").classList.add("hidden");
-            document.getElementById("welcome-view").classList.remove("hidden");
-            document.getElementById("student-name").value = "";
-        }
-
-        function alertCustom(msg) {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';
-            modal.innerHTML = `
-                <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4 animate-fadeIn">
-                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full mx-auto flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    </div>
-                    <p class="text-sm font-medium text-slate-700">${msg}</p>
-                    <button id="alert-ok-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">
-                        Mengerti
-                    </button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            document.getElementById("alert-ok-btn").addEventListener("click", () => {
-                modal.remove();
-            });
-        }
+        loadQuiz();
     </script>
 </body>
 </html>
